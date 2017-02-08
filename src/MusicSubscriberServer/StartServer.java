@@ -32,7 +32,6 @@ public class StartServer
         Registry registry = LocateRegistry.createRegistry(portNumber);
         registry.rebind(bindingName, remotePublisher);
 
-        DatabaseServer d  = new DatabaseServer();
         // Remote publisher registered
         System.out.println("Remote publisher registered.");
         System.out.println("Port number  : " + portNumber);

@@ -62,4 +62,8 @@ public class DatabaseServer
             System.err.println(ex.getMessage());
         }
     }
+        public static void main(String[] args)
+    {
+        DatabaseServer d = new DatabaseServer();
+    }
 }

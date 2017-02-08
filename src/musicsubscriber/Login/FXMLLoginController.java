@@ -41,7 +41,10 @@ public class FXMLLoginController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        database.connectToRMIDatabaseServer();
+        if(database.connectToRMIDatabaseServer())
+        {
+            System.out.println("database found");
+        }
     }
 
     /**
