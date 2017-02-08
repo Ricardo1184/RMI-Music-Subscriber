@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="93.0" prefWidth="233.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="musicsubscriber.Login.FXMLLoginController">
+  <children>
+    <TextField fx:id="txtUserName" layoutX="78.0" layoutY="16.0" prefHeight="25.0" prefWidth="130.0" text="Rico" />
+    <Label layoutX="16.0" layoutY="20.0" text="Username" />
+    <Button fx:id="btnLogin" layoutX="158.0" layoutY="52.0" mnemonicParsing="false" onAction="#handleBtnLoginClicked" text="Log In" />
+    <Button fx:id="btnNewUser" layoutX="10.0" layoutY="52.0" mnemonicParsing="false" onAction="#handleBtnNewUserClicked" text="New User" />
+  </children>
+</AnchorPane>
