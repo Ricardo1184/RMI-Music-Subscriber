@@ -2,6 +2,8 @@ package MusicSubscriberServer;
 
 import Database.DatabaseServer;
 import fontyspublisher.RemotePublisher;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -20,11 +22,12 @@ public class StartServer
      * @param args the command line arguments
      * @throws java.rmi.RemoteException
      */
-    public static void main(String[] args) throws RemoteException
+    public static void main(String[] args) throws RemoteException, UnknownHostException
     {
         // Create an instance of RemotePublisher
         RemotePublisher remotePublisher = new RemotePublisher();
-
+        System.setProperty("java.rmi.server.hostname","192.168.1.35");
+        System.out.println(InetAddress.getLocalHost().getHostAddress());
         // Create registry and register remote publisher
         Registry registry = LocateRegistry.createRegistry(portNumber);
         registry.rebind(bindingName, remotePublisher);

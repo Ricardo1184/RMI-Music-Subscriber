@@ -17,7 +17,7 @@ public class DatabaseController
     private String currentIpAddress;
     private boolean connectedToDatabase;
     //private final String ipAddressDB = "localhost";
-    private final String ipAddressDB = "192.168.78.1";
+    private final String ipAddressDB = "192.168.1.35";
 
     private final int portNumber = 1088;
     private static final String bindingName = "Database";

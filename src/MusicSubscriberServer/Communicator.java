@@ -67,7 +67,7 @@ public class Communicator
     {
         try
         {
-            Registry registry = LocateRegistry.getRegistry("192.168.78.1", portNumber);
+            Registry registry = LocateRegistry.getRegistry("192.168.1.35", portNumber);
             publisherForDomain = (IRemotePublisherForDomain) registry.lookup(bindingName);
             publisherForListener = (IRemotePublisherForListener) registry.lookup(bindingName);
             connected = true;
