@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="482.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="musicsubscriber.MainScreen.FXMLMainScreenController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="468.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="musicsubscriber.MainScreen.FXMLMainScreenController">
   <children>
     <ListView fx:id="lvArtistNames" layoutX="244.0" layoutY="71.0" prefHeight="315.0" prefWidth="211.0" />
     <TextField fx:id="txtArtistName" layoutX="243.0" layoutY="33.0" onKeyTyped="#HandletxtArtistsChanged" prefHeight="25.0" prefWidth="138.0" />
@@ -14,9 +14,9 @@
     <Label layoutX="243.0" layoutY="17.0" text="Artist" />
     <Button fx:id="btnConnectToServer" layoutX="21.0" layoutY="366.0" mnemonicParsing="false" onAction="#HandlebtnConnectToServerPressed" text="Connect To Server" />
     <Label fx:id="lblConnected" layoutX="151.0" layoutY="369.0" text="Not Connected" />
-    <Button layoutX="396.0" layoutY="33.0" mnemonicParsing="false" text="Add New" />
-      <Label layoutX="21.0" layoutY="17.0" text="Music Folder" />
-      <TextField fx:id="txtMusicFolder" layoutX="18.0" layoutY="33.0" prefHeight="25.0" prefWidth="138.0" />
-      <Button fx:id="btnBrowseMusicFolder" layoutX="164.0" layoutY="33.0" mnemonicParsing="false" onAction="#HandlebtnBrowseFolderPressed" text="Browse" />
+    <Button layoutX="385.0" layoutY="33.0" mnemonicParsing="false" text="Add New" />
+    <Label layoutX="21.0" layoutY="17.0" text="Music Folder" />
+    <TextField fx:id="txtMusicFolder" layoutX="18.0" layoutY="33.0" prefHeight="25.0" prefWidth="138.0" />
+    <Button fx:id="btnBrowseMusicFolder" layoutX="164.0" layoutY="33.0" mnemonicParsing="false" onAction="#HandlebtnBrowseFolderPressed" text="Browse" />
   </children>
 </AnchorPane>

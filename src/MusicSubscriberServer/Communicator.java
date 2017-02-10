@@ -57,7 +57,7 @@ public class Communicator
     {
         String artist = evt.getPropertyName();
         String type = (String) evt.getNewValue();
-        controller.updateArtists(artist, type);
+        controller.addArtistUpdate(artist, type);
     }
 
     /**
@@ -67,7 +67,7 @@ public class Communicator
     {
         try
         {
-            Registry registry = LocateRegistry.getRegistry("192.168.1.35", portNumber);
+            Registry registry = LocateRegistry.getRegistry(IpAdresses.getServerIpAdress(), portNumber);
             publisherForDomain = (IRemotePublisherForDomain) registry.lookup(bindingName);
             publisherForListener = (IRemotePublisherForListener) registry.lookup(bindingName);
             connected = true;

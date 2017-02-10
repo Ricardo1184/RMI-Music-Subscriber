@@ -55,12 +55,14 @@ public class DatabaseServer
         try
         {
             registry.rebind(bindingName, database);
+            System.out.println((char)27 + "[32mDatabase Server running!");
         } catch (RemoteException | NullPointerException ex)
         {
             System.out.println("Server: Cannot start database");
             System.err.println("Server: This server is probably already running");
             System.err.println(ex.getMessage());
         }
+
     }
         public static void main(String[] args)
     {

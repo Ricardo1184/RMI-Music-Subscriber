@@ -30,7 +30,6 @@ public class Client extends Application {
      
         primaryStage.setTitle("Music Subscriber");
         primaryStage.show();
-
     }
 
     /**

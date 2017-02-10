@@ -5,6 +5,7 @@ import Database.DatabaseMediator;
 import FileWatcher.FileWatcher;
 import MusicSubscriberServer.Communicator;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -35,8 +36,7 @@ import javafx.stage.Stage;
  *
  * @author Ricardo van Dijke
  */
-public class FXMLMainScreenController implements Initializable
-{
+public class FXMLMainScreenController implements Initializable {
 
     @FXML
     TextField txtMusicFolder;
@@ -79,7 +79,8 @@ public class FXMLMainScreenController implements Initializable
         try
         {
             comm = new Communicator(this);
-        } catch (RemoteException ex)
+        }
+        catch (RemoteException ex)
         {
             Logger.getLogger(FXMLMainScreenController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -89,7 +90,7 @@ public class FXMLMainScreenController implements Initializable
     {
         this.userName = userName;
     }
-    
+
     public void SetDatabaseController(DatabaseController db)
     {
         database = db;
@@ -104,48 +105,44 @@ public class FXMLMainScreenController implements Initializable
             for (String artist : database.getDatabase().getArtists(""))
             {
                 comm.register(artist);
-                if(database.getDatabase().getArtistSubscription(userName, artist))
+                if (database.getDatabase().getArtistSubscription(userName, artist))
                 {
                     comm.subscribe(artist);
                 }
             }
-            
-        } else
+        }
+        else
         {
             lblConnected.setTextFill(Color.RED);
             lblConnected.setText("Not connected!");
         }
     }
 
-    EventHandler cbChecked = (EventHandler<ActionEvent>) new EventHandler<ActionEvent>()
-    {
+    EventHandler cbChecked = (EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent event)
         {
             if (event.getSource() instanceof CheckBox)
             {
                 CheckBox chk = (CheckBox) event.getSource();
-                if (chk.isSelected())
+                try
                 {
-                    try
+                    if (chk.isSelected())
                     {
                         database.getDatabase().AddArtistSubscription(userName, chk.getText());
-                    } catch (RemoteException ex)
-                    {
-                        Logger.getLogger(FXMLMainScreenController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } else
-                {
-                    try
+                    else
                     {
                         database.getDatabase().RemoveArtistSubscription(userName, chk.getText());
-                    } catch (RemoteException ex)
-                    {
-                        Logger.getLogger(FXMLMainScreenController.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                }
+                catch (RemoteException ex)
+                {
+                    Logger.getLogger(FXMLMainScreenController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
+
     };
 
     public void HandletxtArtistsChanged() throws RemoteException
@@ -161,7 +158,6 @@ public class FXMLMainScreenController implements Initializable
             checkBox.setOnAction(cbChecked);
             pane.getChildren().add(checkBox);
             lvArtistNames.getItems().add(pane);
-
         }
     }
 
@@ -172,9 +168,26 @@ public class FXMLMainScreenController implements Initializable
             DirectoryChooser dc = new DirectoryChooser();
             File selectedDirectory = dc.showDialog(new Stage());
 
-            Thread watcherThread = new Thread(new FileWatcher(selectedDirectory.toPath(), this));
+            Thread watcherThread = null;
+            watcherThread = new Thread(new FileWatcher(selectedDirectory.toPath(), this));
             watcherThread.start();
-        } catch (IOException ex)
+            txtMusicFolder.setText(selectedDirectory.toPath().toString());
+            for (File dir : selectedDirectory.listFiles())
+            {
+                if (dir.isDirectory())
+                {
+                    if (database.getDatabase().AddArtist(dir.getName()))
+                    {
+                        database.getDatabase().AddArtistSubscription(userName,dir.getName());
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setContentText(dir.getName() + " was added to the database");
+                        HandletxtArtistsChanged();
+                        alert.showAndWait();
+                    }
+                }
+            }
+        }
+        catch (IOException ex)
         {
             Logger.getLogger(FXMLMainScreenController.class.getName()).log(Level.SEVERE, null, ex);
             Alert alertBox = new Alert(Alert.AlertType.ERROR);
@@ -183,7 +196,7 @@ public class FXMLMainScreenController implements Initializable
         }
     }
 
-    public void updateArtists(String artist, String type)
+    public void addArtistUpdate(String artist, String type)
     {
         lvArtistUpdates.getItems().add(artist + " was " + type);
     }
@@ -191,11 +204,11 @@ public class FXMLMainScreenController implements Initializable
     public FXMLMainScreenController()
     {
     }
+
     public void PushUpdate(WatchEvent<Path> event)
     {
 
-        Platform.runLater(new Runnable()
-        {
+        Platform.runLater(new Runnable() {
             @Override
             public void run()
             {
@@ -204,22 +217,25 @@ public class FXMLMainScreenController implements Initializable
                 if (type == StandardWatchEventKinds.ENTRY_CREATE)
                 {
                     eventType = "created";
-                } else if (type == StandardWatchEventKinds.ENTRY_DELETE)
+                }
+                else if (type == StandardWatchEventKinds.ENTRY_DELETE)
                 {
                     eventType = "deleted";
-                } else if (type == StandardWatchEventKinds.ENTRY_MODIFY)
+                }
+                else if (type == StandardWatchEventKinds.ENTRY_MODIFY)
                 {
                     eventType = "modified";
                 }
                 lvArtistUpdates.getItems().add(event.context().getFileName() + " was " + eventType);
                 broadcastArtistChanged(event.context().getFileName().toString(), eventType);
             }
-        });
 
+        });
     }
 
     private void broadcastArtistChanged(String property, String type)
     {
         comm.broadcast(property, type);
     }
+
 }

@@ -1,5 +1,6 @@
 package Database;
 
+import MusicSubscriberServer.IpAdresses;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -14,10 +15,8 @@ public class DatabaseController
 
     private Registry registry = null;
     private IPersistencyMediator Database = null;
-    private String currentIpAddress;
     private boolean connectedToDatabase;
-    //private final String ipAddressDB = "localhost";
-    private final String ipAddressDB = "192.168.1.35";
+    private final String ipAddressDB = IpAdresses.getDatabaseIpAdress();
 
     private final int portNumber = 1088;
     private static final String bindingName = "Database";

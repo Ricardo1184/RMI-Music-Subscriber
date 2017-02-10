@@ -22,7 +22,7 @@ public class DatabaseMediator extends UnicastRemoteObject implements IPersistenc
     //private static Statement statement;
     private static ResultSet myRs;
 
-    private static final String connectionstring = "jdbc:oracle:thin:@localhost:1521:xe";
+    private static final String connectionstring = "jdbc:oracle:thin:@localhost:1521/xe";
     private static final String user = "system";
     private static final String pass = "admin";
 
@@ -36,7 +36,6 @@ public class DatabaseMediator extends UnicastRemoteObject implements IPersistenc
         {
             Logger.getLogger(DatabaseMediator.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     /**
