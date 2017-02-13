@@ -8,15 +8,15 @@ public final class IpAdresses {
     
     public static String getDatabaseIpAdress()
     {
-        return "192.168.1.3";
+        return "192.168.1.35";
     }
 
     public static String getServerIpAdress()
     {
-        return "192.168.1.3";
+        return "192.168.1.35";
     }
     
-    IpAdresses()
+    private IpAdresses()
     {
         
     }
