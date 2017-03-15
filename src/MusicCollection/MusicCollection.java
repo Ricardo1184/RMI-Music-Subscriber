@@ -11,4 +11,5 @@ public interface MusicCollection
 {
     public boolean AddSong(File file);
     public boolean DeleteSong(Path path);
+    public boolean CheckIfSongExists(File file);
 }
